@@ -14,16 +14,24 @@ public class Funcionario extends Pessoa {
         this.funcao = funcao;
     }
 
-    public BigDecimal getSalario() {
+    public void aumentarSalario(BigDecimal percentAumento) {
         if (salario == null) {
-            return BigDecimal.ZERO;
+            return;
         }
-        return salario;
+        BigDecimal aumento = salario.multiply(percentAumento.divide(BigDecimal.valueOf(100)));
+        this.salario = this.salario.add(aumento);
     }
 
     private String getSalarioFormatado() {
         DecimalFormat decimalFormat = new DecimalFormat("###,###,##0.00");
         return decimalFormat.format(getSalario());
+    }
+
+    public BigDecimal getSalario() {
+        if (salario == null) {
+            return BigDecimal.ZERO;
+        }
+        return salario;
     }
 
     @Override

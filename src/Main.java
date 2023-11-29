@@ -26,5 +26,13 @@ public class Main {
 
         // listando funcionarios
         funcionarioService.listaFuncionarios();
+
+        //aumentar em 10% o salario dos funcionarios
+        BigDecimal percentAumento = BigDecimal.valueOf(10);
+        funcionarioService.getFuncionarios().forEach(funcionario -> funcionario.aumentarSalario(percentAumento));
+
+        // listando funcionarios
+        funcionarioService.listaFuncionarios();
+
     }
 }
