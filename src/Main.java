@@ -1,4 +1,5 @@
 import model.Funcionario;
+import model.Pessoa;
 import service.FuncionarioService;
 
 import java.math.BigDecimal;
@@ -8,6 +9,7 @@ import java.time.Period;
 import java.time.Year;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAmount;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,6 +60,11 @@ public class Main {
         // Imprimir funcionario com maior idade
         exibirFuncionarioComMaiorIdade(funcionarios);
 
+        // Litstar por ordem alfabetica
+        funcionarios.stream()
+                .sorted(Comparator.comparing(Pessoa::getNome))
+                .forEach(System.out::println);
+        System.out.println();
 
 
 
