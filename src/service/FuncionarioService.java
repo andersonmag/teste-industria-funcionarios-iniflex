@@ -2,7 +2,6 @@ package service;
 
 import model.Funcionario;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,8 +27,9 @@ public class FuncionarioService {
         }
     }
 
-    public void listaFuncionarios() {
+    public void exibirFuncionarios() {
         funcionarios.forEach(System.out::println);
+        System.out.println();
     }
 
 }

@@ -34,6 +34,10 @@ public class Funcionario extends Pessoa {
         return salario;
     }
 
+    public String getFuncao() {
+        return funcao;
+    }
+
     @Override
     public String toString() {
         return "Funcionario{" +

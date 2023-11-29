@@ -3,6 +3,10 @@ import service.FuncionarioService;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
@@ -25,14 +29,18 @@ public class Main {
         funcionarioService.removeFuncionario(nomeRemover);
 
         // listando funcionarios
-        funcionarioService.listaFuncionarios();
+        funcionarioService.exibirFuncionarios();
 
         //aumentar em 10% o salario dos funcionarios
         BigDecimal percentAumento = BigDecimal.valueOf(10);
         funcionarioService.getFuncionarios().forEach(funcionario -> funcionario.aumentarSalario(percentAumento));
 
+        // criando map de funcionarios
+        Map<String, List<Funcionario>> mapFuncionariosFuncao =
+            funcionarioService.getFuncionarios().stream().collect(Collectors.groupingBy(funcionario -> funcionario.getFuncao()));
+        mapFuncionariosFuncao.values().forEach(System.out::println);
+
         // listando funcionarios
-        funcionarioService.listaFuncionarios();
 
     }
 }
