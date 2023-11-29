@@ -15,4 +15,14 @@ public class FuncionarioService {
     public List<Funcionario> getFuncionarios() {
         return funcionarios;
     }
+
+    public void removeFuncionario(String nomeRemover) {
+        boolean removeu = funcionarios.removeIf(func -> func.getNome().equals(nomeRemover));
+
+        if(removeu) {
+          System.out.println(nomeRemover + " foi removido!");
+        } else {
+            System.out.println("Nenhum funcionário encontrado com nome " + nomeRemover);
+        }
+    }
 }
