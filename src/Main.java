@@ -66,6 +66,10 @@ public class Main {
                 .forEach(System.out::println);
         System.out.println();
 
+        // Total salario funcionarios
+        BigDecimal totalSalarioFuncionarios = funcionarios.stream()
+                .map(funcionario -> funcionario.getSalario()).reduce(BigDecimal.ZERO, BigDecimal::add);
+        System.out.println(totalSalarioFuncionarios + "\n");
 
 
     }
