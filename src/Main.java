@@ -3,6 +3,11 @@ import service.FuncionarioService;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.Period;
+import java.time.Year;
+import java.time.temporal.Temporal;
+import java.time.temporal.TemporalAmount;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,23 +36,53 @@ public class Main {
         // listando funcionarios
         funcionarioService.exibirFuncionarios();
 
+        List<Funcionario> funcionarios = funcionarioService.getFuncionarios();
+
         //aumentar em 10% o salario dos funcionarios
         BigDecimal percentAumento = BigDecimal.valueOf(10);
-        funcionarioService.getFuncionarios().forEach(funcionario -> funcionario.aumentarSalario(percentAumento));
+        funcionarios.forEach(funcionario -> funcionario.aumentarSalario(percentAumento));
 
         // criando map de funcionarios
         Map<String, List<Funcionario>> mapFuncionariosFuncao =
-            funcionarioService.getFuncionarios().stream().collect(Collectors.groupingBy(funcionario -> funcionario.getFuncao()));
+            funcionarios.stream().collect(Collectors.groupingBy(funcionario -> funcionario.getFuncao()));
         mapFuncionariosFuncao.values().forEach(System.out::println);
         System.out.println();
 
         // Funcionarios que fazem aniversario mês 10 e 12
-        funcionarioService.getFuncionarios().stream()
+        funcionarios.stream()
                 .filter(funcionario -> funcionario.getDataNascimento().getMonth().getValue() == 10
                             || funcionario.getDataNascimento().getMonth().getValue() == 12)
                 .forEach(System.out::println);
+        System.out.println();
+
+        // Imprimir funcionario com maior idade
+        exibirFuncionarioComMaiorIdade(funcionarios);
 
 
 
+
+    }
+
+    private static void exibirFuncionarioComMaiorIdade(List<Funcionario> funcionarios) {
+        Funcionario funcionarioMaiorIdade = null;
+        long maiorIdade = 0;
+
+        for (Funcionario funcionario : funcionarios) {
+            LocalDate dataNascimento = funcionario.getDataNascimento();
+            LocalDate dataHoje = LocalDate.now();
+
+            long anos = dataNascimento.datesUntil(dataHoje, Period.ofYears(1))
+                            .filter(aniversario -> !aniversario.equals(dataNascimento)).count();
+
+            boolean fazendoAniversarioHoje = (dataNascimento.getMonth().equals(dataHoje.getMonth()) && dataNascimento.getDayOfMonth() == dataHoje.getDayOfMonth());
+            if(fazendoAniversarioHoje) ++anos;
+
+            if(anos > maiorIdade) {
+                funcionarioMaiorIdade = funcionario;
+                maiorIdade = anos;
+            }
+        }
+
+        System.out.println("Maior idade: " + funcionarioMaiorIdade.getNome() + " - " + maiorIdade + " anos \n");
     }
 }
