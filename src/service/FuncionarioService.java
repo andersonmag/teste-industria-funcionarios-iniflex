@@ -20,9 +20,13 @@ public class FuncionarioService {
         boolean removeu = funcionarios.removeIf(func -> func.getNome().equals(nomeRemover));
 
         if(removeu) {
-          System.out.println(nomeRemover + " foi removido!");
+          System.out.println(nomeRemover + " foi removido! \n");
         } else {
-            System.out.println("Nenhum funcionário encontrado com nome " + nomeRemover);
+            System.out.println("Nenhum funcionário encontrado com nome " + nomeRemover + "\n");
         }
+    }
+
+    public void listaFuncionarios() {
+        funcionarios.forEach(System.out::println);
     }
 }

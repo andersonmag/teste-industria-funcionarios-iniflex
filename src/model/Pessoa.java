@@ -1,6 +1,7 @@
 package model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public abstract class Pessoa {
     private String nome;
@@ -13,5 +14,9 @@ public abstract class Pessoa {
 
     public String getNome() {
         return nome;
+    }
+
+    public String getDataNascimentoFormatada() {
+        return dataNascimento.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 }

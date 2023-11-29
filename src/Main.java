@@ -23,5 +23,8 @@ public class Main {
         // removendo joão
         String nomeRemover = "João";
         funcionarioService.removeFuncionario(nomeRemover);
+
+        // listando funcionarios
+        funcionarioService.listaFuncionarios();
     }
 }
