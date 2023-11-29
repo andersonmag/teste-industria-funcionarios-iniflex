@@ -19,4 +19,8 @@ public abstract class Pessoa {
     public String getDataNascimentoFormatada() {
         return dataNascimento.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
+
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
+    }
 }

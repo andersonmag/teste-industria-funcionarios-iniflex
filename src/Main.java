@@ -39,8 +39,15 @@ public class Main {
         Map<String, List<Funcionario>> mapFuncionariosFuncao =
             funcionarioService.getFuncionarios().stream().collect(Collectors.groupingBy(funcionario -> funcionario.getFuncao()));
         mapFuncionariosFuncao.values().forEach(System.out::println);
+        System.out.println();
 
-        // listando funcionarios
+        // Funcionarios que fazem aniversario mês 10 e 12
+        funcionarioService.getFuncionarios().stream()
+                .filter(funcionario -> funcionario.getDataNascimento().getMonth().getValue() == 10
+                            || funcionario.getDataNascimento().getMonth().getValue() == 12)
+                .forEach(System.out::println);
+
+
 
     }
 }
