@@ -1,16 +1,12 @@
 import model.Funcionario;
 import model.Pessoa;
 import service.FuncionarioService;
-
+import util.ConversorValores;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.Period;
-import java.time.Year;
-import java.time.temporal.Temporal;
-import java.time.temporal.TemporalAmount;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -30,9 +26,10 @@ public class Main {
         funcionarioService.addFuncionario(new Funcionario("Laura", LocalDate.parse("1994-07-08"), BigDecimal.valueOf(3017.45), "Gerente"));
         funcionarioService.addFuncionario(new Funcionario("Heloísa", LocalDate.parse("2003-05-24"), BigDecimal.valueOf(1606.85), "Eletricista"));
         funcionarioService.addFuncionario(new Funcionario("Helena", LocalDate.parse("1996-09-02"), BigDecimal.valueOf(2799.93), "Gerente"));
+        System.out.println();
 
         // removendo joão
-        String nomeRemover = "João";
+        var nomeRemover = "João";
         funcionarioService.removeFuncionario(nomeRemover);
 
         // listando funcionarios
@@ -41,12 +38,13 @@ public class Main {
         List<Funcionario> funcionarios = funcionarioService.getFuncionarios();
 
         //aumentar em 10% o salario dos funcionarios
-        BigDecimal percentAumento = BigDecimal.valueOf(10);
+        var percentAumento = BigDecimal.valueOf(10);
         funcionarios.forEach(funcionario -> funcionario.aumentarSalario(percentAumento));
 
         // criando map de funcionarios
         Map<String, List<Funcionario>> mapFuncionariosFuncao =
             funcionarios.stream().collect(Collectors.groupingBy(funcionario -> funcionario.getFuncao()));
+        // Listar map de funcionarios
         mapFuncionariosFuncao.values().forEach(System.out::println);
         System.out.println();
 
@@ -67,11 +65,15 @@ public class Main {
         System.out.println();
 
         // Total salario funcionarios
-        BigDecimal totalSalarioFuncionarios = funcionarios.stream()
+        var totalSalarioFuncionarios = funcionarios.stream()
                 .map(funcionario -> funcionario.getSalario()).reduce(BigDecimal.ZERO, BigDecimal::add);
-        System.out.println(totalSalarioFuncionarios + "\n");
+        System.out.println("Total salários funcionarios: " + ConversorValores.converte(totalSalarioFuncionarios) + "\n");
 
-
+        // Quantidade de salarios minimos de cada funcionario
+        var salarioMinimo = BigDecimal.valueOf(1212.00);
+        System.out.println("Salário mínimo atual: " + ConversorValores.converte(salarioMinimo));
+        funcionarios.forEach(funcionario -> System.out.println(funcionario.getNome() + " - " + funcionario.getSalarioFormatado() + " - "
+                                + funcionario.getSalario().divide(salarioMinimo, RoundingMode.DOWN).intValue() + " salário(s) mínimo(s)!"));
     }
 
     private static void exibirFuncionarioComMaiorIdade(List<Funcionario> funcionarios) {

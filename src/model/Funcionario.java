@@ -1,7 +1,7 @@
 package model;
 
+import util.ConversorValores;
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.time.LocalDate;
 
 public class Funcionario extends Pessoa {
@@ -22,9 +22,8 @@ public class Funcionario extends Pessoa {
         this.salario = this.salario.add(aumento);
     }
 
-    private String getSalarioFormatado() {
-        DecimalFormat decimalFormat = new DecimalFormat("###,###,##0.00");
-        return decimalFormat.format(getSalario());
+    public String getSalarioFormatado() {
+        return ConversorValores.converte(getSalario());
     }
 
     public BigDecimal getSalario() {
